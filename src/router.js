@@ -57,6 +57,9 @@ const router = createRouter({
 
 // Navigation guard to check authentication before accessing certain routes
 router.beforeEach((to, _, next) => {
+  if(to.path === '/')
+    next({name: 'leadboard'}); // Redirect to leadboard if the path is root
+  
   // If the route requires authentication, check if the user is logged in.
   if (to.matched.some(record => record.meta.requiresAuth)) {
     const user = JSON.parse(localStorage.getItem('user'));
