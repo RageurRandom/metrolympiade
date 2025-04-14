@@ -1,23 +1,39 @@
 <script setup>
   import { ref } from "vue";
+  import { apiUrl } from "constants";
 
   const name = ref("");
   const email = ref("");
   const password = ref("");
+  const teamName = ref("");
 
-  const teams = [
-    {
-      name: "test 1",
-      id : 1
-    },
-    {
-      name : "test 2",
-      id: 2
-    }
-  ];
+  const isLoading = ref(false);
 
   function register() {
 
+
+    isLoading.value = true;
+
+    fetch(apiUrl + "/auth/register", {
+    method: "POST",
+    body: JSON.stringify({
+      username: name.value,
+      email: email.value,
+      password: password.value,
+      teamName: teamName.value
+    }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      localStorage.setItem("user", JSON.stringify(data));
+      router.push("/");
+    })
+    .catch((err) => {
+      console.error(err);
+    })
+    .finally(() => {
+      isLoading.value = false;
+    });
   }
 </script>
 
@@ -33,13 +49,14 @@
       <label for="password">Mot de Passe : </label>
       <input type="password" id="password" v-model="password">
 
-      <label for="team">Equipe : </label>
-      <select id="team" v-for="(teamName, id) in teams"
-      :key="id">
-        <option value="{{id}}">{{ teamName }}</option>
-      </select>
+      <label for="teamName">Nom de l'Equipe : </label>
+      <input type="text" id="teamName" v-model="teamName">
 
       <button>Connexion</button>
     </form>
+
+    <div v-if="isLoading">
+      Chargement . . .
+    </div>
   </main>
 </template>
