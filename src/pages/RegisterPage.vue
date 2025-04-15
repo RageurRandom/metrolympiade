@@ -1,6 +1,7 @@
 <script setup>
   import { ref } from "vue";
-  import { apiUrl } from "constants";
+  import { apiUrl } from "@/main";
+
 
   const name = ref("");
   const email = ref("");

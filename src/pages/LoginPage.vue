@@ -1,6 +1,6 @@
 <script setup>
   import { ref } from "vue";
-  import {apiUrl} from "constants"
+  import { apiUrl } from "@/main";
 
   const email = ref("");
   const password = ref("");
