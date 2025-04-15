@@ -5,17 +5,25 @@
 
     const sidebarIsOpen = ref(false); 
 
-    function changeSidebarStatus() {
-        sidebarIsOpen.value = !sidebarIsOpen.value;
+    function changeSidebarStatus(isOpen) {
+        sidebarIsOpen.value = isOpen;
     }
 
 </script>
 
 <template>
 
-    <button @click="changeSidebarStatus">☰</button>
+    <!-- Button to open the sidebar -->
+    <button 
+        @click="changeSidebarStatus(true)" 
+        class="fixed top-4 left-4 bg-gray-800 text-white p-2 rounded shadow-lg hover:bg-gray-700 transition-colors duration-300"
+    >
+        ☰
+    </button>
 
-    <Sidebar :isOpen="sidebarIsOpen" @close-Request="changeSidebarStatus"></Sidebar>
+    <!-- Sidebar -->
+    <Sidebar :isOpen="sidebarIsOpen" @close-Request="changeSidebarStatus(false)"></Sidebar>
 
+    <!-- Router view -->
     <RouterView></RouterView>
 </template>

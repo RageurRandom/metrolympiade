@@ -2,17 +2,12 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 import GamePage from './pages/GamePage.vue';
 import GamesPage from './pages/GamesPage.vue';
-import LeadBoardPage from './pages/LeaderboardPage.vue';
+import LeaderBoardPage from './pages/LeaderboardPage.vue';
 import LoginPage from './pages/LoginPage.vue';
 import RegisterPage from './pages/RegisterPage.vue';
 import TeamPage from './pages/TeamPage.vue';
 
 const routes = [
-  {
-    path: '/',
-    name: 'home',
-    redirect: { name: 'leaderboard' }
-  },
   {
     path: '/game',
     name: 'game',
@@ -51,7 +46,7 @@ const routes = [
   {
     path:"/leaderboard",
     name:"leaderboard",
-    component: LeadBoardPage
+    component: LeaderBoardPage
   }
 ];
 
@@ -64,7 +59,7 @@ const router = createRouter({
 router.beforeEach((to, _, next) => {
   
   if(to.path === '/')
-    next({name: 'leadboard'}); // Redirect to leadboard if the path is root
+    next({name: 'leaderboard'}); // Redirect to leadboard if the path is root
 
   else{
     

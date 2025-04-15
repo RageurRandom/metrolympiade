@@ -14,7 +14,7 @@ export function useUserData() {
   
   const logout = () => {
     localStorage.removeItem('user')
-    window.location.reload() // Pour rafraîchir l'état de l'application
+    window.location.reload() // To refresh the page and remove user data from the state
   }
   
   return {

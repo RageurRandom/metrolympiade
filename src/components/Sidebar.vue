@@ -14,43 +14,79 @@ const props = defineProps({
 
 const emits = defineEmits(['closeRequest']); //event to ask the app to close the sidebar
 
-const sidebarVisibilty = computed(() => { 
-    return props.isOpen ? 'block' : 'none';
-});
+const user = useUserData().user; //get the user data from the composable
+const logout = useUserData().logout; //get the logout function from the composable
 
-const user = useUserData(); //get the user data from the composable
 const isConnected = computed(() => { //check if the user is connected
-    return user != null;
+    return user.value != null;
 });
 
 const router = useRouter(); //get the router instance
-
-//function to log out the user
-function logOut(){
-    localStorage.removeItem('user'); //remove the user data from local storage
-    location.reload(); //reload the page to update the app state
-}
+console.log(user); 
 
 </script>
 
 <template>
-    <div :style="{display:sidebarVisibilty}">
+    <div         
+        :class="[
+            'fixed top-0 left-0 h-full bg-gray-800 text-white shadow-lg transition-transform duration-300',
+            props.isOpen ? 'translate-x-0' : '-translate-x-full'
+        ]"
+        style="width: 250px;"
+    >
 
         <!-- button to close the sidebar -->
-        <button @click="$emit('closeRequest')">Fermer &times;</button>
+        <button 
+            @click="$emit('closeRequest')"
+            class="absolute top-4 right-4 text-white text-xl"
+        >
+            &times;
+        </button>
 
-        <h2>Metrolympiade</h2>
-        <h3 v-if="isConnected">{{ user.team.name }}</h3> <!-- show the team name if the user is connected -->
-        
-        <a href="/leadboard">Classement générale</a>
+        <h2 class="text-2xl font-bold p-4">Metrolympiade</h2>
 
-        <a v-if="isConnected" href="/team">Mon équipe</a>
+        <h3 v-if="isConnected" class="text-lg font-semibold p-4">{{ user.team.name }}</h3>
 
-        <a v-if="isConnected" href="/games">Mes matches</a>
+        <nav class="flex flex-col space-y-4 p-4">
 
-        <a @click="()=>{if(isConnected) logOut(); else router.push('/login')}">
-            {{ isConnected ? 'Se déconnecter' : 'Se connecter' }}
-        </a>
+            <!-- Link to the leaderboard page -->
+            <a 
+                @click="()=>{router.push('/leaderboard'); emits('closeRequest')}"
+                class="hover:text-gray-300"
+            >
+                Classement générale
+            </a> 
+
+            <!-- Link to the team page -->
+            <a 
+                v-if="isConnected" 
+                @click="()=>{router.push('/team'); emits('closeRequest')}"
+                class="hover:text-gray-300"
+            >
+                Mon équipe
+            </a>
+            
+            <!-- Link to the games' page -->
+            <a 
+                v-if="isConnected"
+                @click="()=>{router.push('/games'); emits('closeRequest')}"
+                class="hover:text-gray-300"
+            >
+                Mes matches
+            </a>
+
+            <!-- Link to logout the user -->
+            <a v-if="isConnected" @click="logout()">
+                Se déconnecter
+            </a>
+
+            <a 
+                v-if="!isConnected" 
+                @click="()=>{router.push('/login'); emits('closeRequest')}"
+            >
+                Se connecter
+            </a> <!-- Link to logout the user -->
+        </nav>
 
     </div>
 </template>
