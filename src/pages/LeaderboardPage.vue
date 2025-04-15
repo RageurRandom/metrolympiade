@@ -5,19 +5,20 @@ const ranking = ref([])
 const isLoading = ref(false)
 const error = ref(null)
 
-const fetchLeaderboard = async () => {
-  isLoading.value = true
-  error.value = null
-  
-  try {
-    const response = await fetch('http://localhost:3000/ranking')
-    ranking.value = await response.json()
-  } catch (err) {
-    error.value = err.message
-    console.error('Erreur:', err)
-  } finally {
-    isLoading.value = false
-  }
+function fetchLeaderboard() {
+  isLoading.value = true;
+  fetch("http://localhost:3000/ranking")
+    .then((response) => response.json())
+    .then((data) => {
+      ranking.value = data;
+    })
+    .catch((err) => {
+      error.value = err.message;
+      console.error("Erreur:", err);
+    })
+    .finally(() => {
+      isLoading.value = false;
+    });
 }
 
 onMounted(() => {
