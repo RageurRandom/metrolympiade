@@ -1,23 +1,31 @@
 <script setup>
-  import { ref } from "vue";
-  import { apiUrl } from "@/main";
-  import { useRouter } from "vue-router";
+import { ref } from "vue";
+import { apiUrl } from "@/main";
+import { useRouter } from "vue-router";
 
-  const router = useRouter();
-  const name = ref("");
-  const email = ref("");
-  const password = ref("");
-  const teamName = ref("");
-
-  const isLoading = ref(false);
-
-  function register() {
+const router = useRouter();
+const name = ref("");
+const email = ref("");
+const password = ref("");
+const teamName = ref("");
+const isLoading = ref(false);
+const error = ref(null);
 
 
-    isLoading.value = true;
+function register() {
+  if (!name.value || !email.value || !password.value || !teamName.value) {
+    error.value = "Tous les champs sont obligatoires";
+    return;
+  }
 
-    fetch(apiUrl + "/auth/register", {
+  isLoading.value = true;
+  error.value = null;
+  
+  fetch(apiUrl + "/auth/register", {
     method: "POST",
+    headers: {
+      'Content-Type': 'application/json'
+    },
     body: JSON.stringify({
       username: name.value,
       email: email.value,
@@ -25,20 +33,18 @@
       teamName: teamName.value
     }),
   })
-    .then((res) => res.json())
-    .then((data) => {
-      localStorage.setItem("user", JSON.stringify(data));
-
-
-      router.push("/");
-    })
-    .catch((err) => {
-      console.error(err);
-    })
-    .finally(() => {
-      isLoading.value = false;
-    });
-  }
+  .then((response) => response.json())
+  .then((data) => {
+    localStorage.setItem("user", JSON.stringify(data));
+    router.push("/");
+  })
+  .catch((err) => {
+    console.error(err);
+  })
+  .finally(() => {
+    isLoading.value = false;
+  });
+}
 </script>
 
 <template>

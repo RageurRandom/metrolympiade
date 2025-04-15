@@ -1,35 +1,37 @@
 <script setup>
-  import { ref } from "vue";
-  import { apiUrl } from "@/main";
-  import { useRouter } from "vue-router";
+import { ref } from "vue";
+import { apiUrl } from "@/main";
+import { useRouter } from "vue-router";
 
-  const router = useRouter();
-  const email = ref("");
-  const password = ref("");
-  const isLoading = ref(false);
+const router = useRouter();
+const email = ref("");
+const password = ref("");
+const isLoading = ref(false);
 
-  function login() {
-    isLoading.value = true;
+function login() {
+  isLoading.value = true;
 
-    fetch(apiUrl + "/auth/login", {
-      method : "POST",
-      body : JSON.stringify({
-        email: email.value,
-        password: password.value
-      })
-    }).then((res) => res.json())
-    .then((data) => {
-      localStorage.setItem("user", JSON.stringify(data));
-      router.push("/");
+  fetch(apiUrl + "/auth/login", {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    method : "POST",
+    body : JSON.stringify({
+      email: email.value,
+      password: password.value
     })
-    .catch((err) => {
-      console.error(err);
-    })
-    .finally(() => {
-      isLoading.value = false;
-    });
-
-  }
+  }).then((res) => res.json())
+  .then((data) => {
+    localStorage.setItem("user", JSON.stringify(data));
+    router.push("/");
+  })
+  .catch((err) => {
+    console.error(err);
+  })
+  .finally(() => {
+    isLoading.value = false;
+  });
+}
 </script>
 
 <template>
