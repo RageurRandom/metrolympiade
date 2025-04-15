@@ -1,6 +1,5 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useUserData } from '../composables/useUserData'
 
 const ranking = ref([])
 const isLoading = ref(false)
@@ -16,6 +15,8 @@ const fetchLeaderboard = async () => {
   } catch (err) {
     error.value = err.message
     console.error('Erreur:', err)
+  } finally {
+    isLoading.value = false
   }
 }
 
@@ -25,110 +26,59 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="app-layout">  
-      <!-- Main content -->
-      <main class="main-content">
-        <h1 class="leaderboard-title">Classement générale</h1>
-        
-        <table class="leaderboard-table">
+  <div class="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <main class="w-full max-w-4xl p-6 bg-white rounded-lg shadow-md">
+      <h1 class="text-2xl font-bold text-black border-b-2 border-green-500 pb-4 mb-6">
+        Classement générale
+      </h1>
+
+      <div v-if="isLoading" class="text-center text-gray-500">Chargement...</div>
+      <div v-else-if="error" class="text-center text-red-500">{{ error }}</div>
+      <div v-else>
+        <table class="w-full border-collapse">
           <thead>
-            <tr>
-              <th>#</th>
-              <th>Équipe</th>
-              <th>Points</th>
+            <tr class="bg-gray-200">
+              <th class="px-4 py-2 text-left text-gray-600">#</th>
+              <th class="px-4 py-2 text-left text-gray-600">Nom</th>
+              <th class="px-4 py-2 text-left text-gray-600">Points</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(team, index) in ranking" :key="team.team">
-              <td class="rank-cell">{{ index + 1 }}</td>
-              <td class="team-cell">{{ team.team }}</td>
-              <td class="points-cell">{{ team.points }}pts</td>
+            <tr 
+              v-for="(team, index) in ranking" 
+              :key="index" 
+              class="odd:bg-white even:bg-gray-50"
+            >
+            <td 
+                class="px-4 py-2 text-black"
+                :class="{
+                  'text-yellow-500 font-bold': index === 0, // Or
+                  'text-gray-400 font-bold': index === 1,  // Argent
+                  'text-orange-500 font-bold': index === 2 // Bronze
+                }"
+              >
+                {{ index + 1 }}
+              </td>
+              <td
+                class="px-4 py-2 text-black"
+                :class="{
+                  'text-yellow-500 font-bold': index === 0, // Or
+                  'text-gray-400 font-bold': index === 1,  // Argent
+                  'text-orange-500 font-bold': index === 2 // Bronze
+                }">{{ team.team }}
+              </td>
+              <td                 
+                class="px-4 py-2 text-black"
+                :class="{
+                  'text-yellow-500 font-bold': index === 0, // Or
+                  'text-gray-400 font-bold': index === 1,  // Argent
+                  'text-orange-500 font-bold': index === 2 // Bronze
+                }">{{ team.points }}
+                </td>
             </tr>
           </tbody>
         </table>
-      </main>
-    </div>
-  </template>
-
-<style scoped>
-body, html {
-    height: 100%;
-    margin: 0;
-}
-
-.main-content {
-    width: 1000px;
-    padding: 20px;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    margin: auto;
-}
-
-.leaderboard-container {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.leaderboard-title {
-    font-size: 1.8rem;
-    color: #2c3e50;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #42b983;
-}
-
-.leaderboard-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.leaderboard-table th {
-    background-color: #42b983;
-    color: white;
-    padding: 12px 15px;
-    text-align: left;
-}
-
-.leaderboard-table td {
-    padding: 12px 15px;
-    border-bottom: 1px solid #e0e0e0;
-}
-
-.leaderboard-table tr:nth-child(even) {
-    background-color: #f8f9fa;
-}
-
-.leaderboard-table tr:hover {
-    background-color: #f1f1f1;
-}
-
-.rank-cell {
-    font-weight: bold;
-    color: #2c3e50;
-    width: 50px;
-}
-
-.team-cell {
-    color: #2c3e50;
-    font-weight: 500;
-}
-
-.points-cell {
-    font-weight: bold;
-    color: #42b983;
-    text-align: right;
-}
-
-/* Style pour la première place */
-.leaderboard-table tr td {
-    background-color: #fff9e6;
-}
-
-.leaderboard-table tr:first-child .points-cell {
-    color: #ffc107;
-    font-size: 1.1em;
-}
-</style>
+      </div>
+    </main>
+  </div>
+</template>
