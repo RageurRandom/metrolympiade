@@ -1,8 +1,9 @@
 <script setup>
   import { ref } from "vue";
   import { apiUrl } from "@/main";
+  import { useRouter } from "vue-router";
 
-
+  const router = useRouter();
   const name = ref("");
   const email = ref("");
   const password = ref("");
@@ -27,6 +28,8 @@
     .then((res) => res.json())
     .then((data) => {
       localStorage.setItem("user", JSON.stringify(data));
+
+
       router.push("/");
     })
     .catch((err) => {

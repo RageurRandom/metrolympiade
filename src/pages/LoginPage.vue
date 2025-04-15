@@ -1,7 +1,9 @@
 <script setup>
   import { ref } from "vue";
   import { apiUrl } from "@/main";
+  import { useRouter } from "vue-router";
 
+  const router = useRouter();
   const email = ref("");
   const password = ref("");
   const isLoading = ref(false);
