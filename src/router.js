@@ -2,12 +2,17 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 import GamePage from './pages/GamePage.vue';
 import GamesPage from './pages/GamesPage.vue';
-import LeadBoardPage from './pages/LeadBoardPage.vue';
+import LeadBoardPage from './pages/LeaderboardPage.vue';
 import LoginPage from './pages/LoginPage.vue';
 import RegisterPage from './pages/RegisterPage.vue';
 import TeamPage from './pages/TeamPage.vue';
 
 const routes = [
+  {
+    path: '/',
+    name: 'home',
+    redirect: { name: 'leaderboard' }
+  },
   {
     path: '/game',
     name: 'game',
@@ -44,8 +49,8 @@ const routes = [
     }
   }, 
   {
-    path:"/leadboard",
-    name:"leadboard",
+    path:"/leaderboard",
+    name:"leaderboard",
     component: LeadBoardPage
   }
 ];

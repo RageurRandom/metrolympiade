@@ -1,7 +1,24 @@
+import { computed } from 'vue'
 
-
-// returns user data from local storage
 export function useUserData() {
-    const localStorageData = JSON.parse(localStorage.getItem("user"));
-    return localStorageData; 
+  const getLocalStorageData = () => {
+    try {
+      return JSON.parse(localStorage.getItem('user'))
+    } catch (error) {
+      console.error('Error parsing user data:', error)
+      return null
+    }
   }
+  
+  const user = computed(() => getLocalStorageData())
+  
+  const logout = () => {
+    localStorage.removeItem('user')
+    window.location.reload() // Pour rafraîchir l'état de l'application
+  }
+  
+  return {
+    user,
+    logout
+  }
+}
