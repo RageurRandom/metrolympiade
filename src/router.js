@@ -12,7 +12,7 @@ const routes = [
     path: '/game',
     name: 'game',
     component: GamePage,
- 
+
     meta: {
       requiresAuth: true
     }
@@ -34,15 +34,15 @@ const routes = [
     path: "/login",
     name: "login",
     component: LoginPage
-  }, 
+  },
   {
-    path: "/team", 
-    name: "team", 
+    path: "/team",
+    name: "team",
     component: TeamPage,
     meta: {
         requiresAuth: true
     }
-  }, 
+  },
   {
     path:"/leaderboard",
     name:"leaderboard",
