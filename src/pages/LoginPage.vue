@@ -34,7 +34,7 @@ function login() {
   })
   .then((data) => {
     localStorage.setItem("user", JSON.stringify(data));
-    router.push("/");
+    location.replace("/"); 
   })
   .catch((err) => {
     error.value = err.message;
