@@ -8,6 +8,6 @@ defineProps(["name"]);
 <template>
   <div>
     <p>{{ name }}</p>
-    <button class="bg-gray-800 text-white p-2 rounded shadow-lg hover:bg-gray-700 transition-colors duration-300">X</button>
+    <button class="bg-gray-800 text-white p-2 rounded shadow-lg hover:bg-gray-700 transition-colors duration-300" @click="remove">X</button>
   </div>
 </template>

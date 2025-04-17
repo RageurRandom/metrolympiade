@@ -1,15 +1,14 @@
 <script setup>
 import { useUserData } from '@/composables/useUserData';
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 import teamMate from '@/components/teamMate.vue';
 import { apiUrl } from '@/main';
 
-  const newTeamName = ref("");
   const user = useUserData().user; //get the user data from the composable
-
-  const teamMates = new Array();
+  const teamMates = ref(new Array());
   const teamName = ref("");
-  const teamId = ref("");
+
+  const newTeamMateName = ref("");
 
   const isLoading = ref(true);
 
@@ -28,18 +27,15 @@ import { apiUrl } from '@/main';
   })
   .then((data) => {
     console.log(data);
-    teamMates.length = 0;
+
     if(data.members != undefined){
 
       data.members.forEach(element => {
-        teamMates.push(element);
+        teamMates.value.push(element);
       });
     }
 
-
     teamName.value = data.name;
-
-    teamId.value = data.id;
   })
   .catch((err) => {
     console.error(err);
@@ -52,6 +48,32 @@ import { apiUrl } from '@/main';
 
   function removeElt(){
 
+  }
+
+  function addTeamMate(){
+    teamMates.value.push(newTeamMateName.value);
+    newTeamMateName.value = "";
+    console.log(JSON.stringify(teamMates.value));
+  }
+
+  function saveChanges(){
+    fetch(apiUrl + "/teams/me", {
+      method: "PUT",
+      headers: {
+        'Authorization': 'Bearer ' + user.value.token
+      },
+      body: JSON.stringify({
+        name: teamName.value,
+        members: teamMates.value
+      }),
+    })
+    .then((res) => {
+      if (!res.ok) throw new Error("Erreur lors de l'inscription");
+      return res.json();
+    })
+    .catch((err) => {
+      console.error(err);
+    });
   }
 </script>
 
@@ -67,10 +89,18 @@ import { apiUrl } from '@/main';
         </div>
 
 
-        <teamMate v-if="!isLoading" v-for="teammateName in teamMates" :name="teammateName" @remove="removeElt()"/>
+        <teamMate v-if="!isLoading" v-for="i in teamMates.lenght":key=i :name="teamMates.value[i]" @remove="removeElt()"/>
         <p v-if="isLoading">Chargement . . .</p>
+
+        <label for="newTeamMate">Nouveau joueur : </label>
+        <input type="text" id="newTeamMate" v-model="newTeamMateName">
+        <button @click="addTeamMate" class="bg-gray-400 text-white p-2 rounded shadow-lg hover:bg-gray-300 transition-colors duration-300">
+          +
+        </button>
+
         <div>
-          <button class="bg-gray-800 text-white p-2 rounded shadow-lg hover:bg-gray-700 transition-colors duration-300">
+          <button class="bg-gray-800 text-white p-2 rounded shadow-lg hover:bg-gray-700 transition-colors duration-300"
+          @click="saveChanges">
             Valider
           </button>
         </div>
