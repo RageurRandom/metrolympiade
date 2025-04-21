@@ -144,6 +144,7 @@ import { apiUrl } from '@/main';
         <div class="flex justify-center">
           <button 
             @click="saveChanges"
+            :disabled="teamName.trim().length === 0"
             class="bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-2 rounded-lg transition"
           >
             Valider
