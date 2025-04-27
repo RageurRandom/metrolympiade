@@ -65,7 +65,7 @@ function register() {
       type="text"
       v-model="name"
       placeholder="Nom d'utilisateur"
-      class="w-full px-4 py-3 border text-black rounded-md focus:outline-none focus:ring-2 focus:ring-green-400 placeholder-gray-400 bg-transparent"
+      class="w-full px-4 py-3 border text-white rounded-md focus:outline-none focus:ring-2 focus:ring-green-400 placeholder-gray-400 bg-transparent"
       required
     />
   </div>
@@ -76,7 +76,7 @@ function register() {
       type="text"
       v-model="teamName"
       placeholder="Nom d'équipe"
-      class="w-full px-4 py-3 border text-black rounded-md focus:outline-none focus:ring-2 focus:ring-green-400 placeholder-gray-400 bg-transparent"
+      class="w-full px-4 py-3 border text-white rounded-md focus:outline-none focus:ring-2 focus:ring-green-400 placeholder-gray-400 bg-transparent"
       required
     />
   </div>
@@ -87,7 +87,7 @@ function register() {
       type="email"
       v-model="email"
       placeholder="Email"
-      class="w-full px-4 py-3 border text-black rounded-md focus:outline-none focus:ring-2 focus:ring-green-400 placeholder-gray-400 bg-transparent"
+      class="w-full px-4 py-3 border text-white rounded-md focus:outline-none focus:ring-2 focus:ring-green-400 placeholder-gray-400 bg-transparent"
       required
     />
   </div>
@@ -98,7 +98,7 @@ function register() {
       type="password"
       v-model="password"
       placeholder="Mot de passe"
-      class="w-full px-4 py-3 border text-black rounded-md focus:outline-none focus:ring-2 focus:ring-green-400 placeholder-gray-400 bg-transparent"
+      class="w-full px-4 py-3 border text-white rounded-md focus:outline-none focus:ring-2 focus:ring-green-400 placeholder-gray-400 bg-transparent"
       required
     />
   </div>
