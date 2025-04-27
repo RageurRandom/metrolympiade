@@ -22,7 +22,7 @@ const emit = defineEmits(["update:team1Score", "update:team2Score"]);
 </script>
 
 <template>
-  <div class="space-y-4 border-t pt-4">
+  <div class="space-y-4 border-t pt-4 !m-5">
     <h2 class="font-bold">Scores finaux</h2>
     <div class="grid grid-cols-2 gap-4">
       <div class="space-y-2">
@@ -32,7 +32,7 @@ const emit = defineEmits(["update:team1Score", "update:team2Score"]);
           :value="team1Score"
           @input="emit('update:team1Score', $event.target.valueAsNumber)"
           min="0"
-          class="w-full p-2 border rounded"
+          class="w-full p-2 border rounded bg-gray-700 text-white"
           :disabled="disabled"
         />
       </div>
@@ -43,7 +43,7 @@ const emit = defineEmits(["update:team1Score", "update:team2Score"]);
           :value="team2Score"
           @input="emit('update:team2Score', $event.target.valueAsNumber)"
           min="0"
-          class="w-full p-2 border rounded"
+          class="w-full p-2 border rounded bg-gray-700 text-white"
           :disabled="disabled"
         />
       </div>

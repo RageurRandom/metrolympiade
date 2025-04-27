@@ -27,7 +27,7 @@ const emit = defineEmits(["update:modelValue"]);
     <select
       :value="modelValue"
       @change="emit('update:modelValue', $event.target.value)"
-      class="w-full p-2 border rounded"
+      class="w-full p-2 border rounded bg-gray-700 text-white"
       :disabled="disabled"
       required
     >

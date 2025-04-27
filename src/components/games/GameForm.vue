@@ -57,7 +57,7 @@ function closeErrorPopup() {
         <input
           type="time"
           v-model="form.startedAt"
-          class="w-full p-2 border rounded "
+          class="w-full p-2 border rounded bg-gray-700 text-white"
           :disabled="isLoading"
           required
         />
