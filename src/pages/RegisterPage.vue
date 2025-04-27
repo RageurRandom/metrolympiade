@@ -51,68 +51,81 @@ function register() {
 </script>
 
 <template>
-  <main class="min-h-screen bg-gray-100 flex items-center justify-center">
-    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-      <h1 class="text-2xl font-bold text-center mb-8">Inscription</h1>
+  <main class="min-h-screen flex items-center justify-center">
+    <div class="p-8 rounded-lg shadow-md w-full max-w-md">
+      <h1 class="text-2xl font-bold text-white text-center mb-8">
+        Inscription</h1>
       
-      <form @submit.prevent="register" class="space-y-4">
-        <div>
-          <label class="block text-gray-700 mb-2">Nom d'utilisateur</label>
-          <input
-            type="text"
-            v-model="name"
-            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          >
-        </div>
-        
-        <div>
-          <label class="block text-gray-700 mb-2">Nom d'équipe</label>
-          <input
-            type="text"
-            v-model="teamName"
-            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          >
-        </div>
-        
-        <div>
-          <label class="block text-gray-700 mb-2">Email</label>
-          <input
-            type="email"
-            v-model="email"
-            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          >
-        </div>
-        
-        <div>
-          <label class="block text-gray-700 mb-2">Mot de passe</label>
-          <input
-            type="password"
-            v-model="password"
-            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          >
-        </div>
+<form @submit.prevent="register" class="h-full flex flex-col justify-center space-y-6">
+    
 
-        <button
-          type="submit"
-          class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition"
-          :disabled="isLoading"
-        >
-          <span v-if="!isLoading">J'inscris mon équipe</span>
-          <span v-else>Inscription en cours...</span>
-        </button>
+  <div>
+    <br>
+    <input
+      type="text"
+      v-model="name"
+      placeholder="Nom d'utilisateur"
+      class="w-full px-4 py-3 border text-white rounded-md focus:outline-none focus:ring-2 focus:ring-green-400 placeholder-gray-400 bg-transparent"
+      required
+    />
+  </div>
 
-        <div v-if="error" class="text-red-500 text-sm text-center">
-          {{ error }}
-        </div>
-      </form>
+  <div>
+    <br>
+    <input
+      type="text"
+      v-model="teamName"
+      placeholder="Nom d'équipe"
+      class="w-full px-4 py-3 border text-white rounded-md focus:outline-none focus:ring-2 focus:ring-green-400 placeholder-gray-400 bg-transparent"
+      required
+    />
+  </div>
+
+  <div>
+    <br>
+    <input
+      type="email"
+      v-model="email"
+      placeholder="Email"
+      class="w-full px-4 py-3 border text-white rounded-md focus:outline-none focus:ring-2 focus:ring-green-400 placeholder-gray-400 bg-transparent"
+      required
+    />
+  </div>
+
+  <div>
+    <br>
+    <input
+      type="password"
+      v-model="password"
+      placeholder="Mot de passe"
+      class="w-full px-4 py-3 border text-white rounded-md focus:outline-none focus:ring-2 focus:ring-green-400 placeholder-gray-400 bg-transparent"
+      required
+    />
+  </div>
+
+  <div class="mt-6">
+    <br>
+      <button
+        type="submit"
+        class="w-full cursor-pointer transition-all bg-gray-700 text-white px-6 py-2 rounded-lg border-green-400 border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px] active:border-b-[2px] active:brightness-90 active:translate-y-[2px] hover:shadow-xl hover:shadow-green-300 shadow-green-300 active:shadow-none"
+        :disabled="isLoading"
+      >
+      <span v-if="!isLoading">J'inscris mon équipe</span>
+      <span v-else>Inscription en cours...</span>
+      </button>
+    </div>
+
+  <div v-if="error" class="text-red-500 text-sm text-center">
+    {{ error }}
+  </div>
+
+</form>
+
 
       <p class="mt-4 text-center text-gray-600">
+        <br>
         Déjà inscrit ? 
-        <router-link to="/login" class="text-blue-500 hover:underline">
+        <router-link to="/login" class="text-green-400 hover:underline">
           Me connecter
         </router-link>
       </p>
