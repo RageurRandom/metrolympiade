@@ -84,23 +84,24 @@ import { apiUrl } from '@/main';
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-100 flex items-center justify-center p-4">
-    <div class="bg-white shadow-xl rounded-2xl p-6 w-full max-w-lg">
-      <h1 class="text-2xl font-bold mb-6 text-center text-gray-800">Mon Équipe</h1>
+  <div class="min-h-screen flex items-center justify-center p-4">
+    <div class="shadow-xl rounded-2xl p-6 w-full max-w-lg">
+      <h1 class="text-2xl font-bold mb-6 text-center text-white">Mon Équipe</h1>
 
       <form @submit.prevent="">
         <!-- Team name -->
-        <div class="mb-4">
-          <label for="team_name" class="block text-sm font-medium text-gray-700 mb-1">
-            Nom de l'équipe :
-          </label>
-          <input 
-            type="text" 
-            id="team_name" 
-            v-model="teamName"
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-        </div>
+
+    <div>
+    <br>
+    <input
+      type="text"
+      id="team_name" 
+      v-model="teamName"
+      placeholder="Nom d'équipe"
+      class="w-full px-4 py-3 border text-white rounded-md focus:outline-none focus:ring-2 focus:ring-green-400 placeholder-gray-400 bg-transparent"
+      required
+    />
+  </div>
 
         <!-- Loadings -->
         <p v-if="isLoading" class="text-center text-gray-500 mb-4">Chargement . . .</p>
@@ -116,40 +117,45 @@ import { apiUrl } from '@/main';
         </div>
 
         <!-- New teammate -->
-        <div class="mb-4">
-          <label for="newTeamMate" class="block text-sm font-medium text-gray-700 mb-1">
-            Nouveau joueur :
-          </label>
-          <input 
-            type="text" 
-            id="newTeamMate" 
-            v-model="newTeamMateName"
-            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-        </div>
+
+        <div>
+    <br>
+    <input
+      type="text"
+      id="newTeamMate" 
+      v-model="newTeamMateName"
+      placeholder="Nouveau Joueur"
+      class="w-full px-4 py-3 border text-white rounded-md focus:outline-none focus:ring-2 focus:ring-green-400 placeholder-gray-400 bg-transparent"
+      required
+    />
+  </div>
+
+        
 
         <!-- add button -->
-        <div class="flex justify-end mb-4">
-          <button 
-            @click="addTeamMate"
-            :disabled="newTeamMateName.trim().length === 0"
-            type="button"
-            class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed transition"
-          >
-            +
-          </button>
-        </div>
+        <br>
+    <div class="flex justify-end mb-4">
+    
+      <button
+      @click="addTeamMate"
+      :disabled="newTeamMateName.trim().length === 0"
+      type="button"
+        class="cursor-pointer transition-all bg-gray-700 text-white px-6 py-2 rounded-lg border-green-400 border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px] active:border-b-[2px] active:brightness-90 active:translate-y-[2px] hover:shadow-xl hover:shadow-green-300 shadow-green-300 active:shadow-none"   >
+        +
+      </button>
+    </div>
 
+
+    <br>
         <!-- validation button -->
-        <div class="flex justify-center">
-          <button 
-            @click="saveChanges"
-            :disabled="teamName.trim().length === 0"
-            class="bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-2 rounded-lg transition"
-          >
-            Valider
-          </button>
-        </div>
+        <div class="flex justify-end">
+      <button
+      @click="saveChanges"
+        :disabled="teamName.trim().length === 0"
+        class="w-full cursor-pointer transition-all bg-gray-700 text-white px-6 py-2 rounded-lg border-green-400 border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px] active:border-b-[2px] active:brightness-90 active:translate-y-[2px] hover:shadow-xl hover:shadow-green-300 shadow-green-300 active:shadow-none"   >
+        Valider
+      </button>
+    </div>
       </form>
     </div>
   </div>
