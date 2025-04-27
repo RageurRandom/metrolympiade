@@ -6,6 +6,7 @@ import LeaderBoardPage from './pages/LeaderboardPage.vue';
 import LoginPage from './pages/LoginPage.vue';
 import RegisterPage from './pages/RegisterPage.vue';
 import TeamPage from './pages/TeamPage.vue';
+import NotFoundPage from './pages/NotFoundPage.vue';
 
 const routes = [
   {
@@ -47,6 +48,11 @@ const routes = [
     path:"/leaderboard",
     name:"leaderboard",
     component: LeaderBoardPage
+  }, 
+  {
+    path: "/notfound",
+    name: "notfound",
+    component: NotFoundPage
   }
 ];
 
@@ -60,6 +66,10 @@ router.beforeEach((to, _, next) => {
   
   if(to.path === '/')
     next({name: 'leaderboard'}); // Redirect to leadboard if the path is root
+
+  else if(!routes.some(route => route.path === to.path)){
+    next({ name: 'notfound' }); // If the route is not found, redirect to the error page
+  }
 
   else{
     
