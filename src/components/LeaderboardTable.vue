@@ -29,12 +29,12 @@ defineProps({
           </tr>
         </thead>
         <tbody>
-          <tr 
-            v-for="(team, index) in ranking" 
-            :key="index" 
+          <tr
+            v-for="(team, index) in ranking"
+            :key="index"
             class="odd:bg-white even:bg-gray-50"
           >
-            <td 
+            <td
               class="px-4 py-2 text-black"
               :class="{
                 'text-yellow-500 font-bold': index === 0,
@@ -54,7 +54,7 @@ defineProps({
             >
               {{ team.team }}
             </td>
-            <td                 
+            <td
               class="px-4 py-2 text-black"
               :class="{
                 'text-yellow-500 font-bold': index === 0,
