@@ -71,53 +71,48 @@ export function useGameData() {
   });
 
   // Create match function
-  const createMatch = (matchData) => {
-    return new Promise((resolve, reject) => {
-      if (!matchData.team2Id || !matchData.activityId || !matchData.startedAt) {
-        error.value = "Tous les champs sont obligatoires";
-        return;
-      }
+  async function createMatch(matchData) {
+    if (!matchData.team2Id || !matchData.activityId || !matchData.startedAt) {
+      error.value = "Tous les champs sont obligatoires";
+      return;
+    }
 
-      isLoading.value = true;
-      error.value = null;
+    isLoading.value = true;
+    error.value = null;
 
-      const payload = {
-        team2Id: matchData.team2Id,
-        activityId: matchData.activityId,
-        startedAt: formatISODate(matchData.startedAt),
-        team1Score: Number(matchData.team1Score),
-        team2Score: Number(matchData.team2Score),
-      };
+    const payload = {
+      team2Id: matchData.team2Id,
+      activityId: matchData.activityId,
+      startedAt: formatISODate(matchData.startedAt),
+      team1Score: Number(matchData.team1Score),
+      team2Score: Number(matchData.team2Score),
+    };
 
-      fetch(`${apiUrl}/matches`, {
+    try {
+      const response = await fetch(`${apiUrl}/matches`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${user.value.token}`,
         },
         body: JSON.stringify(payload),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            return response.json().then((data) => {
-              throw new Error(data.message || "Erreur lors de la création du match");
-            });
-          }
-          return response.json();
-        })
-        .then((data) => {
-          console.log("Match créé avec succès:", data);
-          resolve(data);
-        })
-        .catch((err) => {
-          error.value = err.message || "Erreur serveur";
-          console.error("Erreur création match:", err);
-        })
-        .finally(() => {
-          isLoading.value = false;
-        });
-    });
-  };
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.message || "Erreur lors de la création du match");
+      }
+
+      const data = await response.json();
+      console.log("Match créé avec succès:", data);
+      return data;
+    } catch (err) {
+      error.value = err.message || "Erreur serveur"; // Update error.value here
+      console.error("Erreur création match:", err);
+    } finally {
+      isLoading.value = false;
+    }
+  }
 
   return {
     teams,
