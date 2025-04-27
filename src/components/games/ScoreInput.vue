@@ -22,7 +22,7 @@ const emit = defineEmits(["update:team1Score", "update:team2Score"]);
 </script>
 
 <template>
-  <div class="space-y-4 border-t pt-4 !m-5">
+  <div class="space-y-4 border-t pt-4 !mt-5 !mb-5">
     <h2 class="font-bold">Scores finaux</h2>
     <div class="grid grid-cols-2 gap-4">
       <div class="space-y-2">
