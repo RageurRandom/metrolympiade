@@ -3,11 +3,13 @@ import { onMounted, ref } from "vue";
 import { apiUrl } from "@/main";
 import { useUserData } from "@/composables/useUserData";
 import MatchList from "@/components/games/MatchList.vue";
+import { useRouter } from "vue-router";
 
 const { user } = useUserData();
 const matches = ref([]);
 const isLoading = ref(false);
 const error = ref(null);
+const router = useRouter();
 
 function fetchMatches() {
   isLoading.value = true;
@@ -61,12 +63,12 @@ onMounted(() => {
     <MatchList v-else :matches="matches" :team-name="user.team?.name" />
 
     <div class="mt-6">
-      <router-link
-        to="/game"
-        class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded inline-flex items-center"
+      <button
+        @click="() => router.push('/game')"
+        class="cursor-pointer transition-all bg-gray-700 text-white px-6 py-2 rounded-lg border-green-400 border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px] active:border-b-[2px] active:brightness-90 active:translate-y-[2px] hover:shadow-xl hover:shadow-green-300 shadow-green-300 active:shadow-none"
       >
-        <span>Ajouter un match</span>
-      </router-link>
+        Ajouter un match
+      </button>
     </div>
   </div>
 </template>

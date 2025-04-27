@@ -28,9 +28,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-    <main class="w-full max-w-4xl p-6 bg-white rounded-lg shadow-md">
-      <h1 class="text-2xl font-bold text-black border-b-2 border-green-500 pb-4 mb-6">
+  <div class="flex flex-col items-center justify-center min-h-screen ">
+    <main class="w-full max-w-4xl p-6 rounded-lg shadow-md">
+      <h1 class="text-2xl font-bold text-white border-b-2 border-green-400 pb-4 mb-6">
         Classement générale
       </h1>
       <LeaderboardTable :ranking="ranking" :isLoading="isLoading" :error="error" />
